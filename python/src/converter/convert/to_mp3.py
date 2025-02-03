@@ -1,6 +1,6 @@
 import json, tempfile, os, pika
 from bson.objectid import ObjectId
-import moviepy.editor
+from moviepy import *
 
 
 def start(message, fs_videos, fs_mp3s, channel):
@@ -9,7 +9,7 @@ def start(message, fs_videos, fs_mp3s, channel):
  tf = tempfile.NamedTemporaryFile()
  out = fs_videos.get(ObjectId(message["video_fid"]))
  tf.write(out.read())
- audio = moviepy.editor.VideoFileClip(tf.name).audio
+ audio = VideoFileClip(tf.name).audio
  tf.close()
 
  tf_path = tempfile.gettempdir() + f"/{message['video_fid']}.mp3"
